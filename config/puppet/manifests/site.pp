@@ -29,6 +29,10 @@ class { 'apache':
   stage => 'lamp'
 }
 
+class { 'phpmyadmin':
+  stage => 'lamp'
+}
+
 # set defaults for file ownership/permissions
 File {
   owner => 'root',
@@ -57,3 +61,4 @@ include mysql
 include php
 
 include apache
+include phpmyadmin
