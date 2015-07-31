@@ -1,0 +1,5 @@
+<VirtualHost *:<%= @port %>>
+    ServerAdmin <%= @server_admin %>
+    ServerName <%= @serveraliases %>
+    Redirect permanent / https://<%= @serveraliases %>/
+</VirtualHost>

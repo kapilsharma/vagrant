@@ -1,0 +1,17 @@
+-- Create a test user
+CREATE user 'bas_erp_test'@'localhost' IDENTIFIED BY 'LKcF6Hs4h7hQSuRQ';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_erp`.* TO 'bas_erp_test'@'localhost';
+
+CREATE user 'bas_web_test'@'localhost' IDENTIFIED BY 'LKcF6Hs4h7hQSuRQ';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_website`.* TO 'bas_web_test'@'localhost';
+
+-- Create development user
+CREATE user 'bas'@'localhost' IDENTIFIED BY 'bas';
+GRANT SELECT,INSERT,UPDATE,DELETE on `basgroep_sequence`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_erp`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_extranet`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_website`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_bam`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_logs`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `bastrucks_vfs`.* TO 'bas'@'localhost';
+GRANT SELECT,INSERT,UPDATE,DELETE on `phpsessions`.* TO 'bas'@'localhost';

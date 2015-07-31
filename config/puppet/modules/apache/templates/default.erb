@@ -1,0 +1,27 @@
+<VirtualHost *:<%= @port %>>
+    ServerAdmin <%= @server_admin %>
+    ServerName <%= @servername %>
+    <% if @serveraliases != "" -%>
+    <% if @serveraliases.is_a? Array -%>
+    ServerAlias <%= @serveraliases.flatten.join(" ") %>
+    <% else -%>
+    ServerAlias <%= @serveraliases %>
+    <% end -%>
+    <% end -%>
+    DocumentRoot <%= @document_root %>
+    <Directory <%= @document_root %>>
+        Options <%= @options %>
+        AllowOverride All
+        Order allow,deny
+        allow from all
+        DirectoryIndex index.php index.html
+    </Directory>
+    SetEnv APPLICATION_ENV development
+    ErrorLog <%= @logdir %>/<%= @servername %>_error.log
+    CustomLog <%= @logdir %>/<%= @servername %>_access.log combined
+    LogLevel warn
+    ServerSignature Off
+
+    php_value error_reporting E_ALL|E_STRICT|E_DEPRECATED
+    php_value display_errors 1
+</VirtualHost>

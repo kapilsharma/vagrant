@@ -1,0 +1,48 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:<%= @port %>>
+    ServerAdmin <%= @server_admin %>
+    ServerName <%= @servername %>
+    <% if @serveraliases != "" -%>
+    <% if @serveraliases.is_a? Array -%>
+    ServerAlias <%= @serveraliases.flatten.join(" ") %>
+    <% else -%>
+    ServerAlias <%= @serveraliases %>
+    <% end -%>
+    <% end -%>
+    DocumentRoot <%= @document_root %>
+    <Directory <%= @document_root %>>
+        Options <%= @options %>
+        AllowOverride All
+        Order allow,deny
+        allow from all
+        DirectoryIndex index.php index.html
+    </Directory>
+    SetEnv APPLICATION_ENV development
+    ErrorLog <%= @logdir %>/<%= @servername %>_error.log
+    CustomLog <%= @logdir %>/<%= @servername %>_access.log combined
+    LogLevel warn
+    ServerSignature Off
+
+    CustomLog <%= @logdir %>/<%= @servername %>_ssl_access.log combined
+
+    SSLEngine on
+
+    SSLCertificateFile    /etc/apache2/server.crt
+    SSLCertificateKeyFile /etc/apache2/server.pem
+
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+            SSLOptions +StdEnvVars
+    </FilesMatch>
+    <Directory /usr/lib/cgi-bin>
+            SSLOptions +StdEnvVars
+    </Directory>
+
+    BrowserMatch "MSIE [2-6]" \
+            nokeepalive ssl-unclean-shutdown \
+            downgrade-1.0 force-response-1.0
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+    php_value error_reporting E_ALL|E_STRICT|E_DEPRECATED
+    php_value display_errors 1
+</VirtualHost>
+</IfModule>
